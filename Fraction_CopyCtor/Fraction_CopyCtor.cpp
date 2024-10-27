@@ -94,17 +94,17 @@ public:
         }
     }
 
-    Fraction addFraction(const Fraction& other) const {
-        int commonDenominator = this->denominator * other.getDenominator();
-        int commonNumerator = (this->numerator * other.getDenominator()) + (other.getNumerator() * this->denominator);
+    Fraction operator+(const Fraction& other) const {
+        int commonDenominator = this->denominator * other.denominator;
+        int commonNumerator = (this->numerator * other.denominator) + (other.numerator * this->denominator);
         Fraction result(commonNumerator, commonDenominator);
         result.simplify();
         return result;
     }
 
-    Fraction subtractFraction(const Fraction& other) const {
-        int commonDenominator = this->denominator * other.getDenominator();
-        int commonNumerator = (this->numerator * other.getDenominator()) - (other.getNumerator() * this->denominator);
+    Fraction operator-(const Fraction& other) const {
+        int commonDenominator = this->denominator * other.denominator;
+        int commonNumerator = (this->numerator * other.denominator) - (other.numerator * this->denominator);
 
         Fraction result(commonNumerator, commonDenominator);
         result.simplify();
@@ -112,9 +112,9 @@ public:
     }
 
 
-    Fraction multiplyFraction(const Fraction& other) const {
-        int newNumerator = this->numerator * other.getNumerator();
-        int newDenominator = this->denominator * other.getDenominator();
+    Fraction operator*(const Fraction& other) const {
+        int newNumerator = this->numerator * other.numerator;
+        int newDenominator = this->denominator * other.denominator;
 
         Fraction result(newNumerator, newDenominator);
         result.simplify();
@@ -122,9 +122,9 @@ public:
     }
 
 
-    Fraction divideFraction(const Fraction& other) const {
-        int newNumerator = this->numerator * other.getDenominator();
-        int newDenominator = this->denominator * other.getNumerator();
+    Fraction operator/(const Fraction& other) const {
+        int newNumerator = this->numerator * other.denominator;
+        int newDenominator = this->denominator * other.numerator;
 
         if (newDenominator == 0) {
             cout << "Error! Division by zero." << endl;
@@ -149,34 +149,30 @@ int main()
     Fraction fraction2(3, 5);
     fraction2.setNumerator(2);
     fraction2.setDenominator(3);
+
     cout << "****** Print Fraction1 *********" << endl;
     fraction1.print();
     cout << "****** Print Fraction2 *********" << endl;
     fraction2.print();
-    cout << endl;
 
     cout << "=============== Summ Fraction ==============" << endl;
-    Fraction sum = fraction1.addFraction(fraction2);
+    Fraction sum = fraction1 + fraction2;
     sum.print();
 
     cout << "=============== Subtract Fraction ==============" << endl;
-    Fraction difference = fraction1.subtractFraction(fraction2);
+    Fraction difference = fraction1 - fraction2;
     difference.print();
 
-
     cout << "=============== Multiply Fraction ==============" << endl;
-    Fraction product = fraction1.multiplyFraction(fraction2);
+    Fraction product = fraction1 * fraction2;
     product.print();
 
-
     cout << "=============== Divide Fraction ==============" << endl;
-    Fraction quotient = fraction1.divideFraction(fraction2);
+    Fraction quotient = fraction1 / fraction2;
     quotient.print();
 
     cout << "Number of Fraction instances: " << Fraction::getInstanceCount() << endl;
-
-
-
+    
 
 
 
